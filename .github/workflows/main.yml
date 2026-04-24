@@ -1,2 +1,7 @@
-- name: 사이트 접속 테스트
-  run: curl -I http://www.ochzeus.com
+import requests
+
+try:
+    res = requests.get("http://www.ochzeus.com", timeout=5)
+    print(res.status_code)
+except Exception as e:
+    print("에러:", e)

@@ -1,0 +1,2 @@
+- name: 사이트 접속 테스트
+  run: curl -I http://www.ochzeus.com

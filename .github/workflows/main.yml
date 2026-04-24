@@ -1,7 +1,27 @@
-import requests
+name: Site Connection Test
 
-try:
-    res = requests.get("http://www.ochzeus.com", timeout=5)
-    print(res.status_code)
-except Exception as e:
-    print("에러:", e)
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: curl 테스트
+        run: |
+          echo "=== CURL TEST START ==="
+          curl -I http://www.ochzeus.com --max-time 10 || echo "curl 실패"
+          echo "=== CURL TEST END ==="
+
+      - name: Python requests 테스트
+        run: |
+          python3 - <<EOF
+          import requests
+
+          try:
+              res = requests.get("http://www.ochzeus.com", timeout=10)
+              print("STATUS:", res.status_code)
+          except Exception as e:
+              print("ERROR:", e)
+          EOF
